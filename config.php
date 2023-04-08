@@ -28,6 +28,24 @@ class Config{
 
     }
 
+    function login($email, $password){
+        $sql = "SELECT * FROM user where email = '$email' ";
+        $result=$this->dbcon->query($sql);
+        if($this->dbcon->affected_rows == 1){
+            $row = $result->fetch_assoc();
+            $hash = $row ['password'];
+            $confirm = password_verify($password, $hash);
+            if($confirm){
+                return true;
+            }else{
+                return false;
+            }
+            
+        } else{
+            return false;
+        }
+    }
+
 
 }
 
