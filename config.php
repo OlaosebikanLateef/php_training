@@ -28,6 +28,7 @@ class Config{
 
     }
 
+    //login validation
     function login($email, $password){
         $sql = "SELECT * FROM user where email = '$email' ";
         $result=$this->dbcon->query($sql);
@@ -46,6 +47,38 @@ class Config{
         }
     }
 
+//Update user profile
+function update($firstname, $lastname,  $email, $id){
+        $sql = "UPDATE user SET firstname = '$firstname', lastname = '$lastname', email = '$email' WHERE id = '$id'";
+        $result=$this->dbcon->query($sql);
+        if($this->dbcon->affected_rows == 1){
+            return true;
+        }else{
+            return false;
+        }
+
+}
+
+//fetch user profile
+
+function fetchUserProfile($id){
+        $sql = "SELECT * FROM user WHERE id = '$id'";
+        $result=$this->dbcon->query($sql);
+        if($this->dbcon->affected_rows == 1){
+            $row = $result->fetch_assoc();
+            return $row;  
+        }
+}
+//delete user profile 
+function deleteUser($id){
+    $sql = "DELETE FROM user WHERE id = '$id'";
+    $result=$this->dbcon->query($sql);
+        if($this->dbcon->affected_rows == 1){
+           return true;
+        }else{
+            return false;
+        }
+}
 
 }
 
